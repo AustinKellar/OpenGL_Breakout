@@ -8,6 +8,7 @@ GameObject::GameObject()
 	this->position = NULL;
 	this->width = NULL;
 	this->height = NULL;
+	this->velocity = NULL;
 }
 
 GameObject::GameObject(Vector2* initialPosition, float width, float height)
@@ -15,6 +16,13 @@ GameObject::GameObject(Vector2* initialPosition, float width, float height)
 	this->position = initialPosition;
 	this->width = width;
 	this->height = height;
+	this->velocity = new Vector2(0.f, 0.f);
+}
+
+void GameObject::ApplyPhysics()
+{
+	position->x += velocity->x;
+	position->y += velocity->y;
 }
 
 void GameObject::Draw()
@@ -38,6 +46,7 @@ void GameObject::Draw()
 
 void GameObject::Update()
 {
+	ApplyPhysics();
 	Draw();
 }
 

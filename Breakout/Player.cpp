@@ -12,14 +12,16 @@ Player::Player(Vector2* initialPosition, float width, float height, GLFWwindow* 
 
 void Player::HandleInput() 
 {
+	velocity->x = 0.f;
+
 	if (glfwGetKey(window, GLFW_KEY_D) && position->x < 750.f)
 	{
-		position->x += 7.f;
+		velocity->x = 7.f;
 	}
 
 	if (glfwGetKey(window, GLFW_KEY_A) && position->x > 50.f)
 	{
-		position->x -= 7.f;
+		velocity->x = -7.f;
 	}
 }
 
