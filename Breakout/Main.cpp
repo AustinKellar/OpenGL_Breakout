@@ -9,23 +9,17 @@
 #include "Player.h"
 #include "Ball.h"
 #include <vector>
+#include "Engine.h"
 
 
 using namespace std;
 
-vector<GameObject*> objects;
+Engine* gameEngine = new Engine();
 
 void initialize_objects(GLFWwindow* window)
 {
-	objects.push_back(new Player(new Vector2(400.f, 50.f), 100.f, 30.f, window));
-	objects.push_back(new Ball(new Vector2(400.f, 200.f), 10.f, 10.f));
-
-	float xPos = 30.f;
-	for (int i = 0; i < 19; i++)
-	{
-		objects.push_back(new GameObject(new Vector2(xPos, 550.f), 30.f, 20.f));
-		xPos += 40.f;
-	}
+	gameEngine->Instantiate(new Player(new Vector2(400.f, 50.f), 100.f, 30.f, window));
+	gameEngine->Instantiate(new Ball(new Vector2(400.f, 200.f), 10.f, 10.f));
 }
 
 void render_loop()
@@ -38,10 +32,7 @@ void render_loop()
 	glColor3f(1.0, 1.0, 1.0);
 
 	// update all game objects
-	for (int i = 0; i < objects.size(); i++)
-	{
-		objects[i]->Update();
-	}
+	gameEngine->Update();
 }
 
 int main(int argc, char *argv[])

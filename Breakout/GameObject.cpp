@@ -17,6 +17,14 @@ GameObject::GameObject(Vector2* initialPosition, float width, float height)
 	this->width = width;
 	this->height = height;
 	this->velocity = new Vector2(0.f, 0.f);
+	this->area = width * height;
+
+	this->ul = new Vector2(initialPosition->x - (width / 2.f), initialPosition->y + (height / 2.f));
+	this->ur = new Vector2(initialPosition->x + (width / 2.f), initialPosition->y + (height / 2.f));
+	this->ll = new Vector2(initialPosition->x - (width / 2.f), initialPosition->y - (height / 2.f));
+	this->lr = new Vector2(initialPosition->x + (width / 2.f), initialPosition->y - (height / 2.f));
+
+	this->points = { ul, ur, ll, lr };
 }
 
 void GameObject::ApplyPhysics()

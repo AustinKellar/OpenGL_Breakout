@@ -7,8 +7,9 @@ class Player : public GameObject
 public:
 	Player();
 	Player(Vector2* initialPosition, float width, float height, GLFWwindow* window);
-	virtual void Update();
 	~Player();
+	virtual void HandleCollision(GameObject* other);
+	virtual void Update();
 
 protected:
 	void HandleInput();

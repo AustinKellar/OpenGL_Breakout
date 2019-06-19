@@ -25,6 +25,11 @@ void Player::HandleInput()
 	}
 }
 
+void Player::HandleCollision(GameObject* other)
+{
+
+}
+
 void Player::Update()
 {
 	HandleInput();
