@@ -4,7 +4,7 @@ CollisionDetector::CollisionDetector()
 {
 }
 
-CollisionDetector::CollisionDetector(std::vector<GameObject*> gameObjects)
+CollisionDetector::CollisionDetector(std::vector<GameObject*>* gameObjects)
 {
 	this->gameObjects = gameObjects;
 }
@@ -28,7 +28,7 @@ bool IsCollision(GameObject* obj1, GameObject* obj2)
 
 		area += AreaOfTriangle(P, A, D) + AreaOfTriangle(P, D, C) + AreaOfTriangle(P, C, B) + AreaOfTriangle(P, B, A);
 
-		if (abs(obj2->area - area) < 0.1f)
+		if (abs(obj2->area - area) < 100.f)
 		{
 			return true;
 		}
@@ -38,14 +38,14 @@ bool IsCollision(GameObject* obj1, GameObject* obj2)
 
 void CollisionDetector::DetectCollisions()
 {
-	for (int i = 0; i < gameObjects.size(); i++)
+	for (int i = 0; i < gameObjects->size(); i++)
 	{
-		obj1 = gameObjects[i];
-		for (int j = 0; j < gameObjects.size(); j++)
+		obj1 = (*gameObjects)[i];
+		for (int j = 0; j < gameObjects->size(); j++)
 		{
 			if (i != j)
 			{
-				obj2 = gameObjects[j];
+				obj2 = (*gameObjects)[j];
 				if (IsCollision(obj1, obj2))
 				{
 					obj1->HandleCollision(obj2);

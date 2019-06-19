@@ -2,17 +2,18 @@
 #include <vector>
 #include "GameObject.h"
 #include <cstdlib>
+class Engine;
 
 class CollisionDetector
 {
 public:
 	CollisionDetector();
-	CollisionDetector(std::vector<GameObject*> gameObjects);
+	CollisionDetector(std::vector<GameObject*>* gameObjects);
 	void DetectCollisions();
 	~CollisionDetector();
 
 private:
-	std::vector<GameObject*> gameObjects;
+	std::vector<GameObject*>* gameObjects;
 	GameObject* obj1;
 	GameObject* obj2;
 };

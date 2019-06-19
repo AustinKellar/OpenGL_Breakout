@@ -14,7 +14,7 @@ Ball::Ball(Vector2* initialPosition, float width, float height) : GameObject(ini
 
 void Ball::HandleCollision(GameObject* other)
 {
-
+	velocity->y *= -1;
 }
 
 void Ball::Update()
