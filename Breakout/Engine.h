@@ -7,6 +7,7 @@ class Engine
 public:
 	Engine();
 	~Engine();
+
 	void Instantiate(GameObject* gameObject);
 	void Destroy(GameObject* gameObject);
 	void Update();

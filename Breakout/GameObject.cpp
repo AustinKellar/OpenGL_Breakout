@@ -37,17 +37,22 @@ void GameObject::Draw()
 {
 	glBegin(GL_QUADS);
 
-	// bottom left
-	glVertex3f(position->x - (width / 2.f), position->y - (height / 2.f), 0.0);
+	ll->x = position->x - (width / 2.f);
+	ll->y = position->y - (height / 2.f);
 
-	// top left
-	glVertex3f(position->x - (width / 2.f), position->y + (height / 2.f), 0.0);
+	ul->x = position->x - (width / 2.f);
+	ul->y = position->y + (height / 2.f);
 
-	// top right
-	glVertex3f(position->x + (width / 2.f), position->y + (height / 2.f), 0.0);
+	ur->x = position->x + (width / 2.f);
+	ur->y = position->y + (height / 2.f);
 
-	// bottom right
-	glVertex3f(position->x + (width / 2.f), position->y - (height / 2.f), 0.0);
+	lr->x = position->x + (width / 2.f);
+	lr->y = position->y - (height / 2.f);
+
+	glVertex3f(ll->x,ll->y, 0.0);
+	glVertex3f(ul->x, ul->y, 0.0);
+	glVertex3f(ur->x, ur->y, 0.0);
+	glVertex3f(lr->x, lr->y, 0.0);
 
 	glEnd();
 }
