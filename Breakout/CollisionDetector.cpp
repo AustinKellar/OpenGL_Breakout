@@ -16,24 +16,14 @@ float AreaOfTriangle(Vector2* p1, Vector2* p2, Vector2* p3)
 
 bool IsCollision(GameObject* obj1, GameObject* obj2)
 {
-	for (int i = 0; i < obj1->points.size(); i++)
-	{
-		float area = 0.f;
-		Vector2* P = obj1->points[i];
+	float w = obj1->halfWidth + obj2->halfWidth;
+	float h = obj1->halfHeight + obj2->halfHeight;
+	float dx = obj1->position->x - obj2->position->x;
+	float dy = obj1->position->y - obj2->position->y;
+	float wy = w * dy;
+	float hx = h * dx;
 
-		Vector2* A = obj2->ul;
-		Vector2* B = obj2->ur;
-		Vector2* C = obj2->lr;
-		Vector2* D = obj2->ll;
-
-		area += AreaOfTriangle(P, A, D) + AreaOfTriangle(P, D, C) + AreaOfTriangle(P, C, B) + AreaOfTriangle(P, B, A);
-
-		if (abs(obj2->area - area) < 5000.f)
-		{
-			return true;
-		}
-	}
-	return false;
+	return abs(dx) <= w && abs(dy) <= h;
 }
 
 void CollisionDetector::DetectCollisions()
@@ -48,7 +38,7 @@ void CollisionDetector::DetectCollisions()
 				obj2 = (*gameObjects)[j];
 				if (IsCollision(obj1, obj2))
 				{
-					obj2->HandleCollision(obj1);
+					obj1->HandleCollision(obj2);
 				}
 			}
 		}

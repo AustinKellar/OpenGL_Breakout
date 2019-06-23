@@ -5,9 +5,10 @@ Engine::Engine()
 	collisionDetector = new CollisionDetector(&gameObjects);
 }
 
-void Engine::Instantiate(GameObject* gameObject)
+GameObject* Engine::Instantiate(GameObject* gameObject)
 {
 	this->gameObjects.push_back(gameObject);
+	return gameObject;
 }
 
 void Engine::Destroy(GameObject* gameObject)

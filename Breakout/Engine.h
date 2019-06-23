@@ -11,7 +11,7 @@ public:
 	~Engine();
 
 	// methods
-	void Instantiate(GameObject* gameObject);
+	GameObject* Instantiate(GameObject* gameObject);
 	void Destroy(GameObject* gameObject);
 	void Update();
 

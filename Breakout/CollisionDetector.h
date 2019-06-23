@@ -2,6 +2,8 @@
 #include <vector>
 #include "GameObject.h"
 #include <cstdlib>
+#include <algorithm>
+
 class Engine;
 
 class CollisionDetector

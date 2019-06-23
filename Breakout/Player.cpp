@@ -8,6 +8,7 @@ Player::Player() : GameObject()
 Player::Player(Vector2* initialPosition, float width, float height, GLFWwindow* window) : GameObject(initialPosition, width, height)
 {
 	this->window = window;
+	this->name = "Player";
 }
 
 void Player::HandleInput() 

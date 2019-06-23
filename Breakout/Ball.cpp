@@ -15,41 +15,42 @@ Ball::Ball() : GameObject()
 
 Ball::Ball(Vector2* initialPosition, float width, float height) : GameObject(initialPosition, width, height)
 {
+	this->name = "Ball";
 	velocity->x = 3.f;
 	velocity->y = -3.f;
 }
 
 Direction Ball::GetDirectionOfCollision(GameObject* other)
 {
-	float self_bottom = this->position->y + (this->height / 2.f);
-	float self_right = this->position->x + (this->width / 2.f);
-	float other_bottom = other->position->y + (other->height / 2.f);
-	float other_right = other->position->x + (other->width / 2.f);
+	float w = this->halfWidth + other->halfWidth;
+	float h = this->halfHeight + other->halfHeight;
+	float dx = this->position->x - other->position->x;
+	float dy = this->position->y - other->position->y;
 
-	float bottom_collision = other_bottom - this->position->y;
-	float top_collision = self_bottom - other->position->y;
-	float left_collision = self_right - other->position->x;
-	float right_collision = other_right - this->position->x;
+	float wy = w * dy;
+	float hx = h * dx;
 
-	if (top_collision < bottom_collision && top_collision < left_collision && top_collision < right_collision)
+	if (wy > hx)
 	{
-		return TOP;
-	}
-	else if (bottom_collision < top_collision && bottom_collision < left_collision && bottom_collision < right_collision)
-	{
-		return BOTTOM;
-	}
-	else if (left_collision < right_collision && left_collision < top_collision && left_collision < bottom_collision)
-	{
-		return LEFT;
-	}
-	else if (right_collision < left_collision && right_collision < top_collision && right_collision < bottom_collision)
-	{
-		return RIGHT;
+		if (wy > -hx)
+		{
+			return TOP;
+		}
+		else
+		{
+			return LEFT;
+		}
 	}
 	else
 	{
-		return INSIDE;
+		if (wy > -hx)
+		{
+			return RIGHT;
+		}
+		else
+		{
+			return BOTTOM;
+		}
 	}
 }
 
@@ -57,8 +58,31 @@ void Ball::HandleCollision(GameObject* other)
 {
 	Direction dir = GetDirectionOfCollision(other);
 
-	printf("%d\n", dir);
+	if (dir == TOP)
+	{
+		printf("Hit from top\n");
+	}
 	
+	if (dir == BOTTOM)
+	{
+		printf("Hit from bottom\n");
+	}
+
+	if (dir == LEFT)
+	{
+		printf("Hit from left\n");
+	}
+
+	if (dir == RIGHT)
+	{
+		printf("Hit from right\n");
+	}
+
+	if (dir == INSIDE)
+	{
+		printf("Hit from inside\n");
+	}
+
 	if (dir == TOP || dir == BOTTOM)
 	{
 		velocity->y *= -1;

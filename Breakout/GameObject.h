@@ -1,18 +1,25 @@
 #pragma once
 #include "Vector2.h"
 #include <vector>
+#include <string.h>
+#include <iostream>
+
 class GameObject
 {
 public:
 	// fields
 	Vector2* position;
+	std::string name;
 	float width;
 	float height;
+	float halfWidth;
+	float halfHeight;
 	float area;
 	Vector2* ul;
 	Vector2* ll;
 	Vector2* ur;
 	Vector2* lr;
+
 	std::vector<Vector2*> points;
 
 	// constructors and destructor
