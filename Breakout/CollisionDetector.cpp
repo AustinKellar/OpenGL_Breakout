@@ -28,7 +28,7 @@ bool IsCollision(GameObject* obj1, GameObject* obj2)
 
 		area += AreaOfTriangle(P, A, D) + AreaOfTriangle(P, D, C) + AreaOfTriangle(P, C, B) + AreaOfTriangle(P, B, A);
 
-		if (abs(obj2->area - area) < 100.f)
+		if (abs(obj2->area - area) < 5000.f)
 		{
 			return true;
 		}
@@ -48,7 +48,6 @@ void CollisionDetector::DetectCollisions()
 				obj2 = (*gameObjects)[j];
 				if (IsCollision(obj1, obj2))
 				{
-					obj1->HandleCollision(obj2);
 					obj2->HandleCollision(obj1);
 				}
 			}

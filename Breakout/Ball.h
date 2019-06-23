@@ -1,6 +1,8 @@
 #pragma once
 #include "GameObject.h"
 
+enum Direction : short;
+
 class Ball : public GameObject
 {
 public:
@@ -10,5 +12,7 @@ public:
 
 	virtual void HandleCollision(GameObject* other);
 	virtual void Update();
+private:
+	Direction GetDirectionOfCollision(GameObject* other);
 };
 

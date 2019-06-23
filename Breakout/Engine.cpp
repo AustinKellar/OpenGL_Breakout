@@ -1,7 +1,5 @@
 #include "Engine.h"
 
-
-
 Engine::Engine()
 {
 	collisionDetector = new CollisionDetector(&gameObjects);
