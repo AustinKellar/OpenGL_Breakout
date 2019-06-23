@@ -1,14 +1,5 @@
 #include "Ball.h"
 
-enum Direction : short
-{
-	LEFT,
-	RIGHT,
-	TOP,
-	BOTTOM,
-	INSIDE
-};
-
 Ball::Ball() : GameObject()
 {
 }
@@ -18,9 +9,31 @@ Ball::Ball(Vector2* initialPosition, float width, float height) : GameObject(ini
 	this->name = "Ball";
 	velocity->x = 3.f;
 	velocity->y = -3.f;
+	hitFromTopLastFrame = hitFromLeftLastFrame = hitFromRightLastFrame = hitFromBottomLastFrame = false;
 }
 
-Direction Ball::GetDirectionOfCollision(GameObject* other)
+bool Ball::HitFromTop(float wy, float hx)
+{
+	return (wy > hx && wy > -hx);
+}
+
+bool Ball::HitFromLeft(float wy, float hx)
+{
+	return (wy > hx && wy <= -hx);
+}
+
+bool Ball::HitFromRight(float wy, float hx)
+{
+	return (wy <= hx && wy > -hx);
+}
+
+bool Ball::HitFromBottom(float wy, float hx)
+{
+	return (wy <= hx && wy <= -hx);
+}
+
+
+void Ball::HandleCollision(GameObject* other)
 {
 	float w = this->halfWidth + other->halfWidth;
 	float h = this->halfHeight + other->halfHeight;
@@ -30,66 +43,56 @@ Direction Ball::GetDirectionOfCollision(GameObject* other)
 	float wy = w * dy;
 	float hx = h * dx;
 
-	if (wy > hx)
+	if (HitFromTop(wy, hx))
 	{
-		if (wy > -hx)
+		if (!hitFromTopLastFrame)
 		{
-			return TOP;
-		}
-		else
-		{
-			return LEFT;
+			hitFromTopLastFrame = true;
+			velocity->y *= -1;
 		}
 	}
 	else
 	{
-		if (wy > -hx)
+		hitFromTopLastFrame = false;
+	}
+
+	if (HitFromLeft(wy, hx))
+	{
+		if (!hitFromLeftLastFrame)
 		{
-			return RIGHT;
+			hitFromLeftLastFrame = true;
+			velocity->x *= -1;
 		}
-		else
+	}
+	else
+	{
+		hitFromLeftLastFrame = false;
+	}
+
+	if (HitFromRight(wy, hx))
+	{
+		if (!hitFromRightLastFrame)
 		{
-			return BOTTOM;
+			hitFromRightLastFrame = true;
+			velocity->x *= -1;
 		}
 	}
-}
-
-void Ball::HandleCollision(GameObject* other)
-{
-	Direction dir = GetDirectionOfCollision(other);
-
-	if (dir == TOP)
+	else
 	{
-		printf("Hit from top\n");
-	}
-	
-	if (dir == BOTTOM)
-	{
-		printf("Hit from bottom\n");
+		hitFromRightLastFrame = false;
 	}
 
-	if (dir == LEFT)
+	if (HitFromBottom(wy, hx))
 	{
-		printf("Hit from left\n");
+		if (!hitFromBottomLastFrame)
+		{
+			hitFromBottomLastFrame = true;
+			velocity->y *= -1;
+		}
 	}
-
-	if (dir == RIGHT)
+	else
 	{
-		printf("Hit from right\n");
-	}
-
-	if (dir == INSIDE)
-	{
-		printf("Hit from inside\n");
-	}
-
-	if (dir == TOP || dir == BOTTOM)
-	{
-		velocity->y *= -1;
-	}
-	if (dir == RIGHT || dir == LEFT)
-	{
-		velocity->x *= -1;
+		hitFromBottomLastFrame = false;
 	}
 }
 
