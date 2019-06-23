@@ -9,7 +9,8 @@ Ball::Ball(Vector2* initialPosition, float width, float height) : GameObject(ini
 	this->name = "Ball";
 	velocity->x = 6.f;
 	velocity->y = -6.f;
-	hitFromTopLastFrame = hitFromLeftLastFrame = hitFromRightLastFrame = hitFromBottomLastFrame = false;
+	xVelLastFrame = velocity->x;
+	yVelLastFrame = velocity->y;
 }
 
 bool Ball::HitFromTop(float wy, float hx)
@@ -43,62 +44,22 @@ void Ball::HandleCollision(GameObject* other)
 	float wy = w * dy;
 	float hx = h * dx;
 
-	if (HitFromTop(wy, hx))
+	if ((HitFromTop(wy, hx) || HitFromBottom(wy, hx)) && velocity->y * yVelLastFrame > 0.f)
 	{
-		if (!hitFromTopLastFrame)
-		{
-			hitFromTopLastFrame = true;
-			velocity->y *= -1;
-		}
-	}
-	else
-	{
-		hitFromTopLastFrame = false;
+		velocity->y *= -1;
 	}
 
-	if (HitFromLeft(wy, hx))
+	if ((HitFromLeft(wy, hx) || HitFromRight(wy, hx)) && velocity->x * xVelLastFrame > 0.f)
 	{
-		if (!hitFromLeftLastFrame)
-		{
-			hitFromLeftLastFrame = true;
-			velocity->x *= -1;
-		}
-	}
-	else
-	{
-		hitFromLeftLastFrame = false;
-	}
-
-	if (HitFromRight(wy, hx))
-	{
-		if (!hitFromRightLastFrame)
-		{
-			hitFromRightLastFrame = true;
-			velocity->x *= -1;
-		}
-	}
-	else
-	{
-		hitFromRightLastFrame = false;
-	}
-
-	if (HitFromBottom(wy, hx))
-	{
-		if (!hitFromBottomLastFrame)
-		{
-			hitFromBottomLastFrame = true;
-			velocity->y *= -1;
-		}
-	}
-	else
-	{
-		hitFromBottomLastFrame = false;
+		velocity->x *= -1;
 	}
 }
 
 void Ball::Update()
 {
 	GameObject::Update();
+	yVelLastFrame = velocity->y;
+	xVelLastFrame = velocity->x;
 }
 
 Ball::~Ball()

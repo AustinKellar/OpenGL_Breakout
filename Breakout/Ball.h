@@ -16,9 +16,7 @@ private:
 	bool HitFromRight(float wy, float hx);
 	bool HitFromBottom(float wy, float hx);
 
-	bool hitFromTopLastFrame;
-	bool hitFromLeftLastFrame;
-	bool hitFromRightLastFrame;
-	bool hitFromBottomLastFrame;
+	float yVelLastFrame;
+	float xVelLastFrame;
 };
 
