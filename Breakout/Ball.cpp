@@ -7,8 +7,8 @@ Ball::Ball() : GameObject()
 Ball::Ball(Vector2* initialPosition, float width, float height) : GameObject(initialPosition, width, height)
 {
 	this->name = "Ball";
-	velocity->x = 3.f;
-	velocity->y = -3.f;
+	velocity->x = 6.f;
+	velocity->y = -6.f;
 	hitFromTopLastFrame = hitFromLeftLastFrame = hitFromRightLastFrame = hitFromBottomLastFrame = false;
 }
 

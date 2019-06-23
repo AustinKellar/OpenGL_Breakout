@@ -20,7 +20,7 @@ Engine* gameEngine = new Engine();
 void initialize_objects(GLFWwindow* window)
 {
 	gameEngine->Instantiate(new Player(new Vector2(400.f, 50.f), 100.f, 30.f, window));
-	gameEngine->Instantiate(new Ball(new Vector2(400.f, 200.f), 10.f, 10.f));
+	gameEngine->Instantiate(new Ball(new Vector2(400.f, 200.f), 15.f, 15.f));
 
 	GameObject* rightWall = gameEngine->Instantiate(new Wall(new Vector2(800.f, 300.f), 20.f, 800.f));
 	rightWall->name = "Right Wall";
