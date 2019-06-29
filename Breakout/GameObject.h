@@ -8,6 +8,7 @@ class GameObject
 {
 public:
 	// fields
+	bool toBeDestroyed;
 	Vector2* position;
 	std::string name;
 	float width;
@@ -31,6 +32,7 @@ public:
 	// methods
 	virtual void HandleCollision(GameObject* other) = 0;
 	virtual void Update();
+	void Destroy();
 	
 protected:
 	Vector2* velocity;

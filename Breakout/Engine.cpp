@@ -11,13 +11,16 @@ GameObject* Engine::Instantiate(GameObject* gameObject)
 	return gameObject;
 }
 
-void Engine::Destroy(GameObject* gameObject)
-{
-
-}
-
 void Engine::Update()
 {
+	for (int i = 0; i < gameObjects.size(); i++)
+	{
+		if (gameObjects[i]->toBeDestroyed)
+		{
+			gameObjects.erase(gameObjects.begin() + i);
+		}
+	}
+
 	collisionDetector->DetectCollisions();
 	for (int i = 0; i < gameObjects.size(); i++)
 	{

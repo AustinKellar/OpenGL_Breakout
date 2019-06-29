@@ -12,7 +12,6 @@ public:
 
 	// methods
 	GameObject* Instantiate(GameObject* gameObject);
-	void Destroy(GameObject* gameObject);
 	void Update();
 
 private:

@@ -8,6 +8,7 @@ GameObject::GameObject()
 	this->width = NULL;
 	this->height = NULL;
 	this->velocity = NULL;
+	this->toBeDestroyed = false;
 }
 
 GameObject::GameObject(Vector2* initialPosition, float width, float height)
@@ -28,6 +29,7 @@ GameObject::GameObject(Vector2* initialPosition, float width, float height)
 	this->name = "Unnamed GameObject";
 
 	this->points = { ul, ur, ll, lr };
+	this->toBeDestroyed = false;
 }
 
 void GameObject::ApplyPhysics()
@@ -64,6 +66,11 @@ void GameObject::Update()
 {
 	ApplyPhysics();
 	Draw();
+}
+
+void GameObject::Destroy()
+{
+	this->toBeDestroyed = true;
 }
 
 GameObject::~GameObject()

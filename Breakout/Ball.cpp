@@ -7,8 +7,8 @@ Ball::Ball() : GameObject()
 Ball::Ball(Vector2* initialPosition, float width, float height) : GameObject(initialPosition, width, height)
 {
 	this->name = "Ball";
-	velocity->x = 6.f;
-	velocity->y = -6.f;
+	velocity->x = 3.5f;
+	velocity->y = -3.5f;
 	xVelLastFrame = velocity->x;
 	yVelLastFrame = velocity->y;
 }
@@ -46,12 +46,12 @@ void Ball::HandleCollision(GameObject* other)
 
 	if ((HitFromTop(wy, hx) || HitFromBottom(wy, hx)) && velocity->y * yVelLastFrame > 0.f)
 	{
-		velocity->y *= -1;
+		velocity->y *= -1.005;
 	}
 
 	if ((HitFromLeft(wy, hx) || HitFromRight(wy, hx)) && velocity->x * xVelLastFrame > 0.f)
 	{
-		velocity->x *= -1;
+		velocity->x *= -1.005;
 	}
 }
 
